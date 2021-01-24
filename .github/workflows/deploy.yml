@@ -16,10 +16,12 @@ jobs:
     - name: make
       run: make
 
-    # Tag `latest` and upload deps
-    - uses: eine/tip@master
+    - name: archive
+      run: zip -r deps.zip deps
+
+    - name: tag
+      uses: eine/tip@master
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: 'latest'
-        files: |
-          ./artifact/*
+        files: ./deps.zip
